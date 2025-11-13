@@ -73,7 +73,7 @@ play = [
 [open]
 rules = [
 	# Folder
-	{ name = "*/", use = [ "edit", "open", "reveal" ] },
+	{ name = "*/", use = [ "reveal" ] },
 	# Markdown (must be before text/*)
 	{ name = "*.md", use = [ "markdown", "reveal" ] },
 	{ name = "*.markdown", use = [ "markdown", "reveal" ] },
