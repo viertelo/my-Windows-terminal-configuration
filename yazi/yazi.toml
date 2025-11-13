@@ -38,8 +38,13 @@ edit = [
 open = [
 	{ run = 'xdg-open "$1"',                desc = "Open", for = "linux" },
 	{ run = 'open "$@"',                    desc = "Open", for = "macos" },
-	{ run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
+	{ run = 'cmd /c start "" "%1"', orphan = true, desc = "Open", for = "windows" },
 	{ run = 'termux-open "$1"',             desc = "Open", for = "android" },
+]
+image = [
+	{ run = '"C:\\Program Files\\XnViewMP\\xnviewmp.exe" "%1"', orphan = true, desc = "XnView MP", for = "windows" },
+	{ run = 'cmd /c start "" "%1"', orphan = true, desc = "Default Viewer", for = "windows" },
+	{ run = 'mspaint "%1"', orphan = true, desc = "Paint", for = "windows" },
 ]
 reveal = [
 	{ run = 'xdg-open "$(dirname "$1")"',           desc = "Reveal", for = "linux" },
@@ -54,7 +59,10 @@ extract = [
 ]
 play = [
 	{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
-	{ run = 'mpv --force-window %*', orphan = true, for = "windows" },
+	{ run = 'cmd /c start "" "%1"', orphan = true, desc = "Default Player", for = "windows" },
+	{ run = '''powershell -Command "Start-Process 'C:\\Program Files\\Pure Codec\\x64\\PotPlayerMini64.exe' -ArgumentList '%1'"''', orphan = true, desc = "PotPlayer", for = "windows" },
+	{ run = '''powershell -Command "Start-Process 'C:\\Program Files\\Pure Codec\\x64\\mpc-hc64.exe' -ArgumentList '%1'"''', orphan = true, desc = "MPC-HC", for = "windows" },
+	{ run = 'mpv --force-window %*', orphan = true, desc = "mpv", for = "windows" },
 	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
 ]
 
@@ -65,7 +73,7 @@ rules = [
 	# Text
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
 	# Image
-	{ mime = "image/*", use = [ "open", "reveal" ] },
+	{ mime = "image/*", use = [ "image", "reveal" ] },
 	# Media
 	{ mime = "{audio,video}/*", use = [ "play", "reveal" ] },
 	# Archive
