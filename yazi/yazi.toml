@@ -35,6 +35,10 @@ edit = [
 	# { run = 'code %*',    orphan = true, desc = "code",           for = "windows" },
 	# { run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
 ]
+markdown = [
+	{ run = '"C:\\Program Files\\Typora\\Typora.exe" "%1"', orphan = true, desc = "Typora", for = "windows" },
+	{ run = 'nvim %*', block = true, desc = "nvim", for = "windows" },
+]
 open = [
 	{ run = 'xdg-open "$1"',                desc = "Open", for = "linux" },
 	{ run = 'open "$@"',                    desc = "Open", for = "macos" },
@@ -70,6 +74,9 @@ play = [
 rules = [
 	# Folder
 	{ name = "*/", use = [ "edit", "open", "reveal" ] },
+	# Markdown (must be before text/*)
+	{ name = "*.md", use = [ "markdown", "reveal" ] },
+	{ name = "*.markdown", use = [ "markdown", "reveal" ] },
 	# Text
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
 	# Image
