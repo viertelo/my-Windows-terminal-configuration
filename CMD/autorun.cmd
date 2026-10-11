@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 if "%~1"=="--help" goto :show_help
 if "%~1"=="--shortcuts" goto :show_help
 if "%~1"=="help" goto :show_help

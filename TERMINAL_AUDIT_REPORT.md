@@ -95,7 +95,7 @@
 | **Yazi 按键绑定** | `Yazi/keymap.toml` | `%APPDATA%\yazi\config\keymap.toml` | `DE22D2AD9C4D38A9418CF20CF3E878C22B0C3FC4113481712BF9C56DAB201F0D` | ✅ 100% 一致 |
 | **Yazi 视觉主题** | `Yazi/theme.toml` | `%APPDATA%\yazi\config\theme.toml` | `6B28798C2FA873629FFAC6AA4885570FF379C29DDF0ED89810E5E8347F1885DE` | ✅ 100% 一致 |
 | **Starship 提示符** | `Starship/starship.toml` | `%USERPROFILE%\.config\starship.toml` | `6DB73CCBBA058CE611DF00C4CEFE3383588EAEE51F0A22FCB4C5357048CFB2B2` | ✅ 100% 一致 |
-| **CMD 启动脚本** | `CMD/autorun.cmd` | `%USERPROFILE%\.config\cmd\autorun.cmd` | `B7C3143A619FE76322A0481D2A7CD5BC78ADD93B9693320C478A35DD2888B74F` | ✅ 100% 一致 |
+| **CMD 启动脚本** | `CMD/autorun.cmd` | `%USERPROFILE%\.config\cmd\autorun.cmd` | `45A833D646D43327CA2C5A4C0C71B787B2AE3AD7E18B0CC0A8BEED3667B1940C` | ✅ 100% 一致 |
 | **Clink 设置脚本** | `CMD/clink/settings.lua` | `%LOCALAPPDATA%\clink\settings.lua` | `8BE18219F5F4F622BD9B614C397B196D423F701619302EC6B479BA715F1E7D9E` | ✅ 100% 一致 |
 | **Clink Starship** | `CMD/clink/starship.lua` | `%LOCALAPPDATA%\clink\starship.lua` | `3A018AB9B3FB0CB7BC802FB131124AD1A78BA5B8262373063477A31C9957A06F` | ✅ 100% 一致 |
 | **Clink 参数偏好** | `CMD/clink/clink_settings` | `%LOCALAPPDATA%\clink\clink_settings` | `C2DBC8722888E78618D404ADE29E45115FF00F9299BA51EE163A83CFFC20AFAE` | ✅ 100% 一致 |
@@ -103,9 +103,9 @@
 | **NuShell 环境变量** | `Nushell/env.nu` | `%APPDATA%\nushell\env.nu` | `B96CD4D5C27DC2882D8462F0C982AFE647EAA0490A262A90BA8EE14A3CD3F46E` | ✅ 100% 一致 |
 | **NuShell Starship** | `Nushell/vendor/autoload/starship.nu` | `%APPDATA%\nushell\vendor\autoload\starship.nu` | `69AD0F02310B67080DD4314FDDEB6404971CB252EE9CC209FE328CC679D3341A` | ✅ 100% 一致 |
 | **NuShell Zoxide** | `Nushell/vendor/autoload/zoxide.nu` | `%APPDATA%\nushell\vendor\autoload\zoxide.nu` | `71AE10DB7A4C849E13A2875DD91D97F902BACE2B4BCC64A91148B592B5102F50` | ✅ 100% 一致 |
-| **Git Bash 交互配置** | `Bash/.bashrc` | `%USERPROFILE%\.bashrc` | `8B8DDF5EEA4FB7AD03CCE30693E65D5996B0F41AAF44125E0EBCF425BF8E8767` | ✅ 100% 一致 |
+| **Git Bash 交互配置** | `Bash/.bashrc` | `%USERPROFILE%\.bashrc` | `35A86B8132E62E3E7D9DA03AB8FDCCAE37335F9A711B989DC55EA560B04EDDB0` | ✅ 100% 一致 |
 | **Git Bash 登录引导** | `Bash/.bash_profile` | `%USERPROFILE%\.bash_profile` | `86D2440A1EF9BE54CF4A2F82BA79C4D28D6761FA96E4A9FDF0BF4091731D1FEB` | ✅ 100% 一致 |
-| **MSYS2 增强配置** | `Bash/msys2.bashrc` | `C:\msys64\home\%USERNAME%\.bashrc` | `586E6D19F26E8654B7610561C9A1CAD6FA1AB7EE032C31C432638D222D79BF72` | ✅ 100% 一致 |
+| **MSYS2 增强配置** | `Bash/msys2.bashrc` | `C:\msys64\home\%USERNAME%\.bashrc` | `6E4FCF4A8261B3E749A2A6EDD8D1BBC965E5997744AE879A22C7D61F5F73B3D6` | ✅ 100% 一致 |
 
 ---
 

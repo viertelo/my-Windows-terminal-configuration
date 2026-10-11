@@ -39,9 +39,9 @@ fi
 if command -v fastfetch &> /dev/null && [ "${PROFILE_BANNER:-1}" != "0" ] && [ -t 1 ]; then
     FF_CONF="/c/Users/$WIN_USER/.config/fastfetch/config.jsonc"
     if [ -f "$FF_CONF" ]; then
-        fastfetch -c "$FF_CONF" 2>/dev/null
+        fastfetch --pipe false -c "$FF_CONF" 2>/dev/null
     else
-        fastfetch 2>/dev/null
+        fastfetch --pipe false 2>/dev/null
     fi
 fi
 
