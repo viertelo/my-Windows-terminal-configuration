@@ -12,12 +12,30 @@
             "id": "User.copy.644BA8F2"
         },
         {
-            "command": "paste",
-            "id": "User.paste"
+            "command": 
+            {
+                "action": "commandPalette"
+            },
+            "id": "User.commandPalette"
         },
         {
-            "command": "find",
-            "id": "User.find"
+            "command": 
+            {
+                "action": "moveFocus",
+                "direction": "right"
+            },
+            "id": "User.moveFocus.Right"
+        },
+        {
+            "command": 
+            {
+                "action": "newTab"
+            },
+            "id": "User.newTab"
+        },
+        {
+            "command": "paste",
+            "id": "User.paste"
         },
         {
             "command": 
@@ -27,6 +45,77 @@
                 "splitMode": "duplicate"
             },
             "id": "User.splitPane.A6751878"
+        },
+        {
+            "command": "find",
+            "id": "User.find"
+        },
+        {
+            "command": 
+            {
+                "action": "splitPane",
+                "split": "down",
+                "splitMode": "duplicate"
+            },
+            "id": "User.splitPane.Horizontal"
+        },
+        {
+            "command": "closePane",
+            "id": "User.closePane"
+        },
+        {
+            "command": 
+            {
+                "action": "splitPane",
+                "split": "right",
+                "splitMode": "duplicate"
+            },
+            "id": "User.splitPane.Vertical"
+        },
+        {
+            "command": 
+            {
+                "action": "clearBuffer"
+            },
+            "id": "User.clearBuffer"
+        },
+        {
+            "command": 
+            {
+                "action": "nextTab"
+            },
+            "id": "User.nextTab"
+        },
+        {
+            "command": 
+            {
+                "action": "moveFocus",
+                "direction": "left"
+            },
+            "id": "User.moveFocus.Left"
+        },
+        {
+            "command": 
+            {
+                "action": "prevTab"
+            },
+            "id": "User.prevTab"
+        },
+        {
+            "command": 
+            {
+                "action": "moveFocus",
+                "direction": "up"
+            },
+            "id": "User.moveFocus.Up"
+        },
+        {
+            "command": 
+            {
+                "action": "moveFocus",
+                "direction": "down"
+            },
+            "id": "User.moveFocus.Down"
         }
     ],
     "alwaysOnTop": false,
@@ -36,20 +125,68 @@
     "keybindings": 
     [
         {
+            "id": "User.prevTab",
+            "keys": "ctrl+shift+tab"
+        },
+        {
+            "id": "User.clearBuffer",
+            "keys": "ctrl+shift+k"
+        },
+        {
             "id": "User.copy.644BA8F2",
             "keys": "ctrl+c"
         },
         {
-            "id": "User.find",
-            "keys": "ctrl+shift+f"
+            "id": "User.splitPane.Horizontal",
+            "keys": "alt+shift+minus"
         },
         {
             "id": "User.paste",
             "keys": "ctrl+v"
         },
         {
+            "id": "User.find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "id": "User.closePane",
+            "keys": "ctrl+shift+w"
+        },
+        {
             "id": "User.splitPane.A6751878",
             "keys": "alt+shift+d"
+        },
+        {
+            "id": "User.commandPalette",
+            "keys": "ctrl+shift+p"
+        },
+        {
+            "id": "User.splitPane.Vertical",
+            "keys": "alt+shift+plus"
+        },
+        {
+            "id": "User.newTab",
+            "keys": "ctrl+shift+t"
+        },
+        {
+            "id": "User.moveFocus.Down",
+            "keys": "alt+down"
+        },
+        {
+            "id": "User.nextTab",
+            "keys": "ctrl+tab"
+        },
+        {
+            "id": "User.moveFocus.Up",
+            "keys": "alt+up"
+        },
+        {
+            "id": "User.moveFocus.Left",
+            "keys": "alt+left"
+        },
+        {
+            "id": "User.moveFocus.Right",
+            "keys": "alt+right"
         }
     ],
     "newTabMenu": 
@@ -62,19 +199,19 @@
     {
         "defaults": 
         {
-            "backgroundImage": "%USERPROFILE%\\Pictures\\Wallpapers\\terminal-background.jpg",
+            "backgroundImage": "%USERPROFILE%\\Pictures\\\u58c1\u7eb8\u6587\u4ef6\\dde5a5767u6579.jpg",
             "backgroundImageOpacity": 0.4,
             "backgroundImageStretchMode": "uniformToFill",
             "colorScheme": "Catppuccin Mocha",
-            "cursorShape": "filledBox",
+            "cursorShape": "bar",
             "experimental.retroTerminalEffect": false,
             "font": 
             {
                 "builtinGlyphs": true,
                 "cellHeight": "1.2",
                 "colorGlyphs": true,
-                "face": "JetBrainsMono Nerd Font Mono",
-                "size": 10,
+                "face": "JetBrainsMono NFM, JetBrainsMono NF, JetBrainsMono Nerd Font Mono, Cascadia Code",
+                "size": 11,
                 "weight": "extra-black"
             },
             "intenseTextStyle": "all",
@@ -94,7 +231,8 @@
                 "commandline": "%SystemRoot%\\System32\\cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
-                "name": "Command Prompt"
+                "name": "Command Prompt",
+                "startingDirectory": "%USERPROFILE%"
             },
             {
                 "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
@@ -151,6 +289,14 @@
                 "startingDirectory": "%USERPROFILE%"
             },
             {
+                "colorScheme": "Campbell",
+                "commandline": "nu.exe",
+                "guid": "{a3f9c1e2-7b4d-4f6a-9c2d-1e5b8f3a7d6c}",
+                "name": "NuShell",
+                "startingDirectory": "%USERPROFILE%",
+                "tabTitle": "NuShell"
+            },
+            {
                 "commandline": "C:\\msys64\\msys2_shell.cmd -defterm -here -no-start -ucrt64",
                 "guid": "{16d4cd58-c9b9-4c8f-8e9e-9b7c4d8f3e2a}",
                 "hidden": false,
@@ -165,6 +311,42 @@
                 "icon": "C:\\msys64\\clang64.ico",
                 "name": "MSYS2 CLANG64",
                 "startingDirectory": "%USERPROFILE%"
+            },
+            {
+                "guid": "{31c534e1-691d-52bc-80e4-681bb53feb8e}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{80025ef1-cd5b-5529-9cc6-2f3fd073a250}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{19fe7120-ab08-51db-b0be-5143d42255b8}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{396402fc-9871-5b53-8c6e-37860ce0bce8}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{9e196e24-c2f6-50c5-9d2d-b77bc4674bbc}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 18 (2)",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{4752df87-da1e-56a9-a2ac-a6ac1c2c4d8a}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 18 (2)",
+                "source": "Windows.Terminal.VisualStudio"
             }
         ]
     },
