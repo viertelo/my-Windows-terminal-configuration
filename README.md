@@ -12,7 +12,7 @@
 
 **为 Windows 开发者打造的全终端现代化、高生产力开发环境套件**
 
-[快速开始](#-快速开始) • [多终端矩阵](#-全终端支持矩阵) • [核心特性](#-功能特性) • [文档中心](#-文档中心) • [📋 审计与优化报告](TERMINAL_AUDIT_REPORT.md)
+[快速开始](#-快速开始) • [📖 一步步详细安装教程](INSTALL_GUIDE.md) • [多终端矩阵](#-全终端支持矩阵) • [核心特性](#-功能特性) • [📋 审计报告](TERMINAL_AUDIT_REPORT.md)
 
 </div>
 
@@ -62,20 +62,30 @@
 
 ## 🎯 快速开始
 
-### 1. 安装核心 CLI 工具推荐（通过 Scoop）
+> 💡 **详细教程推荐**：如需图文并茂的逐步安装教学与常见问题排查，请参阅专门的 **[📖 一步步详细安装教程 (INSTALL_GUIDE.md)](INSTALL_GUIDE.md)**。
+
+### 方式 1：一键自动化安装脚本（推荐）
+
+本项目附带了自动化交互式部署脚本 `install.ps1`，支持自动备份旧配置、一键安装 Scoop 依赖与字体、全量部署所有终端：
 
 ```powershell
-# 1. 允许运行脚本
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+# 1. 允许当前用户运行 PowerShell 脚本
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
-# 2. 安装 Scoop
-irm get.scoop.sh | iex
+# 2. 克隆本仓库
+git clone https://github.com/viertelo/my-Windows-terminal-configuration.git
+cd my-Windows-terminal-configuration
 
-# 3. 添加必要 bucket
-scoop bucket add extras
-scoop bucket add nerd-fonts
+# 3. 运行自动化部署向导
+.\install.ps1
+```
 
-# 4. 安装核心工具链
+### 方式 2：手动分步安装
+
+若您希望手动安装核心工具并挑选部分终端进行部署：
+
+```powershell
+# 1. 安装核心工具链（通过 Scoop）
 scoop install git starship oh-my-posh fastfetch eza bat zoxide fzf television tre clink nushell yazi lazygit
 scoop install JetBrainsMono-NF
 ```
