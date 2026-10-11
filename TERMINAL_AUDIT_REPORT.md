@@ -87,7 +87,7 @@
 
 | 组件名称 | 仓库路径 | 对应本地物理安装路径 | SHA-256 校验和 | 验证状态 |
 | :--- | :--- | :--- | :--- | :--- |
-| **PowerShell Profile** | `PowerShell-Enhanced-Profile/Microsoft.PowerShell_profile.ps1` | `$PROFILE` | `DEC6FE0AD5E54286C657579B29A4E634BE95339E8CEBE1973B80DD82CDE29FE4` | ✅ 100% 一致 |
+| **PowerShell Profile** | `PowerShell-Enhanced-Profile/Microsoft.PowerShell_profile.ps1` | `$PROFILE` | `3BB65559E40F95D8F46BC8DFDDD143DB3AF114C950E7492D7306CB5F8EC82223` | ✅ 100% 一致 |
 | **Windows Terminal** | `Terminal/settings.json` | `%LOCALAPPDATA%\Packages\...` | `CD923595160BF530E9AEEC0B716B3DE69B52958742DD1A2937E4784A65F73EA5` | ✅ 100% 一致 |
 | **Fastfetch 配置** | `Fastfetch/config.jsonc` | `%USERPROFILE%\.config\fastfetch\config.jsonc` | `3B874E6DD644823F33D022A9CD85D14F16819F6756DA196F12D48C4C22A26879` | ✅ 100% 一致 |
 | **Fastfetch ASCII** | `Fastfetch/ascii.txt` | `%USERPROFILE%\.config\fastfetch\ascii.txt` | `241EE47C51B433F897534DFFFDCEAE3432B6634EC87BFF802D0E6AC6144EE08E` | ✅ 100% 一致 |
@@ -99,7 +99,7 @@
 | **Clink 设置脚本** | `CMD/clink/settings.lua` | `%LOCALAPPDATA%\clink\settings.lua` | `8BE18219F5F4F622BD9B614C397B196D423F701619302EC6B479BA715F1E7D9E` | ✅ 100% 一致 |
 | **Clink Starship** | `CMD/clink/starship.lua` | `%LOCALAPPDATA%\clink\starship.lua` | `3A018AB9B3FB0CB7BC802FB131124AD1A78BA5B8262373063477A31C9957A06F` | ✅ 100% 一致 |
 | **Clink 参数偏好** | `CMD/clink/clink_settings` | `%LOCALAPPDATA%\clink\clink_settings` | `C2DBC8722888E78618D404ADE29E45115FF00F9299BA51EE163A83CFFC20AFAE` | ✅ 100% 一致 |
-| **NuShell 主配置** | `Nushell/config.nu` | `%APPDATA%\nushell\config.nu` | `8C54ECCE78ABB95AEF050ABE476D958B6F9ECE9F814B571225DE1414631389AF` | ✅ 100% 一致 |
+| **NuShell 主配置** | `Nushell/config.nu` | `%APPDATA%\nushell\config.nu` | `97F9FC9AB5966E61673E8E83B1772DDAFC133C5E3EE59FF60D892A502469F551` | ✅ 100% 一致 |
 | **NuShell 环境变量** | `Nushell/env.nu` | `%APPDATA%\nushell\env.nu` | `B96CD4D5C27DC2882D8462F0C982AFE647EAA0490A262A90BA8EE14A3CD3F46E` | ✅ 100% 一致 |
 | **NuShell Starship** | `Nushell/vendor/autoload/starship.nu` | `%APPDATA%\nushell\vendor\autoload\starship.nu` | `69AD0F02310B67080DD4314FDDEB6404971CB252EE9CC209FE328CC679D3341A` | ✅ 100% 一致 |
 | **NuShell Zoxide** | `Nushell/vendor/autoload/zoxide.nu` | `%APPDATA%\nushell\vendor\autoload\zoxide.nu` | `71AE10DB7A4C849E13A2875DD91D97F902BACE2B4BCC64A91148B592B5102F50` | ✅ 100% 一致 |

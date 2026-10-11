@@ -28,9 +28,9 @@ $env.config = ($env.config? | default {} | merge {
 if ($nu.is-interactive? | default false) and (($env.PROFILE_BANNER? | default "1") != "0") and (which fastfetch | is-not-empty) {
     let conf_file = ("~/.config/fastfetch/config.jsonc" | path expand)
     if ($conf_file | path exists) {
-        ^fastfetch -c $conf_file
+        ^fastfetch --pipe false -c $conf_file
     } else {
-        ^fastfetch
+        ^fastfetch --pipe false
     }
 }
 

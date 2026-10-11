@@ -310,8 +310,8 @@ function Show-SystemInfo {
     if (Get-Command fastfetch -CommandType Application -ErrorAction SilentlyContinue) {
         $configFile = Join-Path $env:USERPROFILE '.config\fastfetch\config.jsonc'
         if (Test-Path -LiteralPath $configFile -PathType Leaf) {
-            try { Write-Host (Invoke-ProfileProcess fastfetch (@('-c',$configFile)+$args) -TimeoutMs 2000) } catch { Write-Verbose $_ }
-        } else { try { Write-Host (Invoke-ProfileProcess fastfetch $args -TimeoutMs 2000) } catch { Write-Verbose $_ } }
+            try { Write-Host (Invoke-ProfileProcess fastfetch (@('-c', $configFile, '--pipe', 'false') + $args) -TimeoutMs 2000) } catch { Write-Verbose $_ }
+        } else { try { Write-Host (Invoke-ProfileProcess fastfetch (@('--pipe', 'false') + $args) -TimeoutMs 2000) } catch { Write-Verbose $_ } }
     } else { Write-Warning 'Fastfetch is not installed. Run: scoop install fastfetch' }
 }
 
