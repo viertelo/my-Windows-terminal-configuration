@@ -103,7 +103,7 @@
 | **NuShell 环境变量** | `Nushell/env.nu` | `%APPDATA%\nushell\env.nu` | `B96CD4D5C27DC2882D8462F0C982AFE647EAA0490A262A90BA8EE14A3CD3F46E` | ✅ 100% 一致 |
 | **NuShell Starship** | `Nushell/vendor/autoload/starship.nu` | `%APPDATA%\nushell\vendor\autoload\starship.nu` | `69AD0F02310B67080DD4314FDDEB6404971CB252EE9CC209FE328CC679D3341A` | ✅ 100% 一致 |
 | **NuShell Zoxide** | `Nushell/vendor/autoload/zoxide.nu` | `%APPDATA%\nushell\vendor\autoload\zoxide.nu` | `71AE10DB7A4C849E13A2875DD91D97F902BACE2B4BCC64A91148B592B5102F50` | ✅ 100% 一致 |
-| **Git Bash 交互配置** | `Bash/.bashrc` | `%USERPROFILE%\.bashrc` | `B1189D36FD2EF1B00EDB49367F65C90BF2A9DB0FC787D658773E380383FD2BDA` | ✅ 100% 一致 |
+| **Git Bash 交互配置** | `Bash/.bashrc` | `%USERPROFILE%\.bashrc` | `8B8DDF5EEA4FB7AD03CCE30693E65D5996B0F41AAF44125E0EBCF425BF8E8767` | ✅ 100% 一致 |
 | **Git Bash 登录引导** | `Bash/.bash_profile` | `%USERPROFILE%\.bash_profile` | `86D2440A1EF9BE54CF4A2F82BA79C4D28D6761FA96E4A9FDF0BF4091731D1FEB` | ✅ 100% 一致 |
 | **MSYS2 增强配置** | `Bash/msys2.bashrc` | `C:\msys64\home\%USERNAME%\.bashrc` | `586E6D19F26E8654B7610561C9A1CAD6FA1AB7EE032C31C432638D222D79BF72` | ✅ 100% 一致 |
 
