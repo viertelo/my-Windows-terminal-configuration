@@ -129,6 +129,91 @@ Set-Alias lzg lazygit
 function lg { if (Get-Command lazygit -CommandType Application -ErrorAction SilentlyContinue) { & lazygit @args } else { llg @args } }
 function v { & nvim @args }
 
+# =======================================================
+# 📺 Television (tv) 极速多频道模糊检索与直达
+# =======================================================
+if (Get-Command tv -CommandType Application -ErrorAction SilentlyContinue) {
+    # tvd: 目录模糊选择并自动切换工作目录
+    function tvd {
+        $dir = & tv dirs @args
+        if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($dir) -and (Test-Path -LiteralPath $dir)) {
+            Set-Location -LiteralPath $dir
+        }
+    }
+
+    # tvf: 交互式文件挑选并用默认编辑器打开
+    function tvf {
+        $file = & tv files @args
+        if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($file) -and (Test-Path -LiteralPath $file)) {
+            if (Get-Command nvim -CommandType Application -ErrorAction SilentlyContinue) {
+                & nvim $file
+            } elseif (Get-Command code -CommandType Application -ErrorAction SilentlyContinue) {
+                & code $file
+            } else {
+                notepad $file
+            }
+        }
+    }
+
+    # tvt: 全文代码检索与行号定位直达 (调用 television text 频道)
+    function tvt {
+        $selected = & tv text @args
+        if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($selected)) {
+            $parts = $selected -split ':'
+            $file = $parts[0]
+            $line = if ($parts.Count -gt 1) { $parts[1] } else { '1' }
+            if (Test-Path -LiteralPath $file) {
+                if (Get-Command nvim -CommandType Application -ErrorAction SilentlyContinue) {
+                    & nvim "+$line" $file
+                } elseif (Get-Command code -CommandType Application -ErrorAction SilentlyContinue) {
+                    & code --goto "${file}:${line}"
+                } else {
+                    notepad $file
+                }
+            }
+        }
+    }
+
+    # tvb: Git 分支交互式切换
+    function tvb {
+        $branch = & tv git-branch @args
+        if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($branch)) {
+            git switch $branch.Trim()
+        }
+    }
+}
+
+# =======================================================
+# 🌳 Tre 现代目录树索引与编号快速打开
+# =======================================================
+function tre {
+    $treCmd = Get-Command tre.exe -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+    if (-not $treCmd) { Write-Warning 'tre 未安装，请运行: scoop install tre'; return }
+
+    $hasE = $args | Where-Object { $_ -eq '-e' -or $_ -like '-e=*' -or $_ -like '-*e*' }
+    $editor = if ($env:EDITOR) { $env:EDITOR } elseif (Get-Command nvim -ErrorAction SilentlyContinue) { 'nvim' } else { '' }
+
+    if (-not $hasE -and $editor) {
+        & $treCmd.Source -e $editor @args
+    } elseif (-not $hasE) {
+        & $treCmd.Source -e @args
+    } else {
+        & $treCmd.Source @args
+    }
+
+    # 动态将 tre 生成的编号别名映射为原生 PowerShell 全局函数 (如 e0, e1, e2...)
+    $aliasFile = Join-Path $env:TEMP "tre_aliases_$env:USERNAME.ps1"
+    if (Test-Path -LiteralPath $aliasFile) {
+        Get-Content -LiteralPath $aliasFile | ForEach-Object {
+            if ($_ -match 'doskey /exename=(?:pwsh|powershell)\.exe\s+(e\d+)=(.+)') {
+                $aliasName = $matches[1]
+                $targetCmd = $matches[2]
+                Set-Item -Path "Function:global:$aliasName" -Value ([ScriptBlock]::Create($targetCmd))
+            }
+        }
+    }
+}
+
 # Zoxide interactive query alias
 function zi {
     if (Get-Command zoxide -CommandType Application -ErrorAction SilentlyContinue) {
@@ -363,6 +448,16 @@ function Show-FeatureTips {
         $features.Add(@{ Name = 'starship'; Desc = '赛博提示符'; Shortcut = '已就绪' })
     }
 
+    # 13. Television (tv)
+    if (Get-Command tv -CommandType Application -ErrorAction SilentlyContinue) {
+        $features.Add(@{ Name = 'television'; Desc = '极速模糊检索'; Shortcut = 'tv/Ctrl+T' })
+    }
+
+    # 14. Tre
+    if (Get-Command tre -CommandType Application -ErrorAction SilentlyContinue) {
+        $features.Add(@{ Name = 'tre'; Desc = '现代树状索引'; Shortcut = 'tre/e<N>' })
+    }
+
     if ($global:VFOX_SKIPPED) {
         $warnings.Add(@{ Name = 'vfox'; Message = '版本管理初始化超时'; Hint = '已自动降级跳过' })
     }
@@ -385,9 +480,9 @@ function Show-FeatureTips {
             Write-Host "(运行: $($w.Hint))" -ForegroundColor Cyan
         }
         Write-Host "  ⚡ 快捷按键: " -NoNewline -ForegroundColor Magenta
-        Write-Host "[Ctrl+R] 历史搜 · [Alt+Z/zi] 目录跳 · [Ctrl+F] 文件填" -ForegroundColor Yellow
+        Write-Host "[Ctrl+R] 历史搜 · [Alt+Z/zi] 目录跳 · [Ctrl+F] 文件填 · [Ctrl+T] 电视补全" -ForegroundColor Yellow
         Write-Host "  ⚡ 效率指令: " -NoNewline -ForegroundColor Magenta
-        Write-Host "[lg/Ctrl+G] Lazygit · [fv] 模糊编辑 · [fif] 全文搜" -ForegroundColor Yellow
+        Write-Host "[lg/Ctrl+G] Lazygit · [tre/e1] 树索引 · [fv/tvf] 模糊编辑 · [fif/tvt] 全文搜" -ForegroundColor Yellow
         Write-Host ""
         return
     }
@@ -445,7 +540,8 @@ function Show-FeatureTips {
     $hotkeys = @(
         @{ Key = '[Ctrl+R]'; Action = '历史搜' },
         @{ Key = '[Alt+Z/zi]'; Action = '目录跳' },
-        @{ Key = '[Ctrl+F]'; Action = '文件填' }
+        @{ Key = '[Ctrl+F]'; Action = '文件填' },
+        @{ Key = '[Ctrl+T]'; Action = '电视补全' }
     )
     for ($k = 0; $k -lt $hotkeys.Count; $k++) {
         $s = $hotkeys[$k]
@@ -462,8 +558,9 @@ function Show-FeatureTips {
     Write-Host "⚡ 效率指令: " -NoNewline -ForegroundColor Magenta
     $cliShortcuts = @(
         @{ Key = '[lg/Ctrl+G]'; Action = 'Lazygit' },
-        @{ Key = '[fv]'; Action = '模糊编辑' },
-        @{ Key = '[fif]'; Action = '全文搜' }
+        @{ Key = '[tre/e1]'; Action = '树索引' },
+        @{ Key = '[fv/tvf]'; Action = '模糊编辑' },
+        @{ Key = '[fif/tvt]'; Action = '全文搜' }
     )
     for ($k = 0; $k -lt $cliShortcuts.Count; $k++) {
         $s = $cliShortcuts[$k]
@@ -573,6 +670,8 @@ function Test-Environment {
         @{Name="Fzf"; Command="fzf"; Required=$false},
         @{Name="Lazygit"; Command="lazygit"; Required=$false},
         @{Name="Lazydocker"; Command="lazydocker"; Required=$false},
+        @{Name="Television"; Command="tv"; Required=$false},
+        @{Name="Tre"; Command="tre"; Required=$false},
         @{Name="Vfox"; Command="vfox"; Required=$false}
     )
 
@@ -819,6 +918,19 @@ if (Get-Module -ListAvailable PSReadLine) {
                 & lazygit
                 [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
             }
+        }
+        if (Get-Command tv -CommandType Application -ErrorAction SilentlyContinue) {
+            try {
+                $tvInit = Invoke-ProfileProcess tv @('init', 'power-shell') -TimeoutMs 1500
+                if ($tvInit) {
+                    Invoke-Expression $tvInit
+                    if (Get-Command fzf -CommandType Application -ErrorAction SilentlyContinue) {
+                        if (Get-Module -ListAvailable PSFzf) {
+                            Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
+                        }
+                    }
+                }
+            } catch { Write-Verbose "Television init: $_" }
         }
     } catch { Write-Warning "PSReadLine/PSFzf: $_" }
 }

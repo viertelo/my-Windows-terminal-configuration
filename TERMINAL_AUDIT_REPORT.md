@@ -142,6 +142,15 @@
 当前配置已形成闭环的高效开发工作流：
 
 ### 1. 代码检索与文件流（Search & Navigation）
+- **`tv` (Television 极速多频道模糊检索器)**：
+  集成 Rust 编写的现代化模糊搜索 TUI，支持 `files`、`dirs`、`text`、`git-branch`、`docker-images` 等多频道；提供原生 `Ctrl+T` 智能补全，可在命令行输入时光标处直接呼出 Television 浮层补全参数。
+- **`tvd` / `tvf` / `tvt` / `tvb` (Television 频道直达快捷指令)**：
+  - `tvd`：目录模糊筛选，选中后自动执行 `Set-Location` 进入目标目录；
+  - `tvf`：模糊选文件，回车直接用 Neovim / VS Code 打开；
+  - `tvt`：全局代码全文检索（`tv text`），回车直接在编辑器中定位到该行；
+  - `tvb`：Git 分支交互式切换。
+- **`tre [路径]` (现代目录树与快速打开)**：
+  树状展示目录结构，同时自动为每个文件/子目录生成 `e0`、`e1`、`e2`... 编号命令。终端直接输入 `e1` 即可用默认编辑器秒级打开对应文件！
 - **`fif <关键字>` (Find In Files)**：
   集成 `ripgrep + fzf + bat`，在当前代码仓库中进行无死角毫秒级全文检索，右侧实时显示代码高亮画中画，按下回车直接调用 Neovim 或 VS Code 并精确定位至对应代码行。
 - **`fv` (Fuzzy View & Edit)**：
