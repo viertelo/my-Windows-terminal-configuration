@@ -289,7 +289,6 @@
                 "startingDirectory": "%USERPROFILE%"
             },
             {
-                "colorScheme": "Campbell",
                 "commandline": "nu.exe",
                 "guid": "{a3f9c1e2-7b4d-4f6a-9c2d-1e5b8f3a7d6c}",
                 "name": "NuShell",

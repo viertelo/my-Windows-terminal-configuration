@@ -141,13 +141,13 @@ function Deploy-Configurations {
         $cmdDir = Split-Path $cmdDest
         if (-not (Test-Path $cmdDir)) { New-Item -ItemType Directory -Path $cmdDir -Force | Out-Null }
         
-        # 确保 CRLF 格式写入
+        # 确保 CRLF 格式且无 BOM 写入，防止 cmd.exe 报 锘緻echo off 语法错误
         $cmdContent = [IO.File]::ReadAllText($cmdSrc)
         $crlfContent = ($cmdContent -replace "`r?`n", "`r`n")
-        [IO.File]::WriteAllText($cmdDest, $crlfContent, [Text.Encoding]::UTF8)
+        [IO.File]::WriteAllText($cmdDest, $crlfContent, [System.Text.UTF8Encoding]::new($false))
 
-        # 写入注册表 AutoRun
-        reg add "HKCU\Software\Microsoft\Command Processor" /v AutoRun /t REG_SZ /d "%USERPROFILE%\.config\cmd\autorun.cmd" /f | Out-Null
+        # 写入注册表 AutoRun (加 @ 抑制命令回显)
+        reg add "HKCU\Software\Microsoft\Command Processor" /v AutoRun /t REG_SZ /d "@if exist `"%USERPROFILE%\.config\cmd\autorun.cmd`" call `"%USERPROFILE%\.config\cmd\autorun.cmd`"" /f | Out-Null
         Write-Success "CMD autorun.cmd 已更新并注册为系统 AutoRun！"
     }
 

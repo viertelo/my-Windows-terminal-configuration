@@ -88,14 +88,14 @@
 | 组件名称 | 仓库路径 | 对应本地物理安装路径 | SHA-256 校验和 | 验证状态 |
 | :--- | :--- | :--- | :--- | :--- |
 | **PowerShell Profile** | `PowerShell-Enhanced-Profile/Microsoft.PowerShell_profile.ps1` | `$PROFILE` | `3BB65559E40F95D8F46BC8DFDDD143DB3AF114C950E7492D7306CB5F8EC82223` | ✅ 100% 一致 |
-| **Windows Terminal** | `Terminal/settings.json` | `%LOCALAPPDATA%\Packages\...` | `CD923595160BF530E9AEEC0B716B3DE69B52958742DD1A2937E4784A65F73EA5` | ✅ 100% 一致 |
+| **Windows Terminal** | `Terminal/settings.json` | `%LOCALAPPDATA%\Packages\...` | `974E23019F5042650A033F8C845A231618EA6AF076309EA04552D3EBB1E29B75` | ✅ 100% 一致 |
 | **Fastfetch 配置** | `Fastfetch/config.jsonc` | `%USERPROFILE%\.config\fastfetch\config.jsonc` | `3B874E6DD644823F33D022A9CD85D14F16819F6756DA196F12D48C4C22A26879` | ✅ 100% 一致 |
-| **Fastfetch ASCII** | `Fastfetch/ascii.txt` | `%USERPROFILE%\.config\fastfetch\ascii.txt` | `241EE47C51B433F897534DFFFDCEAE3432B6634EC87BFF802D0E6AC6144EE08E` | ✅ 100% 一致 |
+| **Fastfetch ASCII** | `Fastfetch/ascii.txt` | `%USERPROFILE%\.config\fastfetch\ascii.txt` | `241EE47C51B433F88FA766BE602452207E9B2D0E69AC4139969E23208AD4419A` | ✅ 100% 一致 |
 | **Yazi 主配置** | `Yazi/yazi.toml` | `%APPDATA%\yazi\config\yazi.toml` | `3DE9E85BC585840C0E1FFBC6682F0860007D939D52DA69F675044EE8BF15254F` | ✅ 100% 一致 |
 | **Yazi 按键绑定** | `Yazi/keymap.toml` | `%APPDATA%\yazi\config\keymap.toml` | `DE22D2AD9C4D38A9418CF20CF3E878C22B0C3FC4113481712BF9C56DAB201F0D` | ✅ 100% 一致 |
 | **Yazi 视觉主题** | `Yazi/theme.toml` | `%APPDATA%\yazi\config\theme.toml` | `6B28798C2FA873629FFAC6AA4885570FF379C29DDF0ED89810E5E8347F1885DE` | ✅ 100% 一致 |
 | **Starship 提示符** | `Starship/starship.toml` | `%USERPROFILE%\.config\starship.toml` | `6DB73CCBBA058CE611DF00C4CEFE3383588EAEE51F0A22FCB4C5357048CFB2B2` | ✅ 100% 一致 |
-| **CMD 启动脚本** | `CMD/autorun.cmd` | `%USERPROFILE%\.config\cmd\autorun.cmd` | `45A833D646D43327CA2C5A4C0C71B787B2AE3AD7E18B0CC0A8BEED3667B1940C` | ✅ 100% 一致 |
+| **CMD 启动脚本** | `CMD/autorun.cmd` | `%USERPROFILE%\.config\cmd\autorun.cmd` | `C7629A7CE1AE4C031258571B163CCDE188CE649CD11566FB1C8BFF5299EDA435` | ✅ 100% 一致 |
 | **Clink 设置脚本** | `CMD/clink/settings.lua` | `%LOCALAPPDATA%\clink\settings.lua` | `8BE18219F5F4F622BD9B614C397B196D423F701619302EC6B479BA715F1E7D9E` | ✅ 100% 一致 |
 | **Clink Starship** | `CMD/clink/starship.lua` | `%LOCALAPPDATA%\clink\starship.lua` | `3A018AB9B3FB0CB7BC802FB131124AD1A78BA5B8262373063477A31C9957A06F` | ✅ 100% 一致 |
 | **Clink 参数偏好** | `CMD/clink/clink_settings` | `%LOCALAPPDATA%\clink\clink_settings` | `C2DBC8722888E78618D404ADE29E45115FF00F9299BA51EE163A83CFFC20AFAE` | ✅ 100% 一致 |

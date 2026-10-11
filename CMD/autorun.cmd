@@ -98,9 +98,9 @@ if exist "C:\Program Files (x86)\clink\clink_x64.exe" (
 rem --- 4. Fastfetch 动漫硬件看板展示 ---
 if "%CMD_PROFILE_BANNER%"=="0" goto :skip_banner
 if exist "%USERPROFILE%\scoop\shims\fastfetch.exe" (
-    "%USERPROFILE%\scoop\shims\fastfetch.exe" 2>nul
+    "%USERPROFILE%\scoop\shims\fastfetch.exe" --pipe false 2>nul
 ) else (
-    where fastfetch >nul 2>&1 && fastfetch 2>nul
+    where fastfetch >nul 2>&1 && fastfetch --pipe false 2>nul
 )
 :skip_banner
 
