@@ -62,7 +62,7 @@
     {
         "defaults": 
         {
-            "backgroundImage": "C:\\Users\\xasr2\\Pictures\\\u58c1\u7eb8\u6587\u4ef6\\dde5a5767u6579.jpg",
+            "backgroundImage": "%USERPROFILE%\\Pictures\\Wallpapers\\terminal-background.jpg",
             "backgroundImageOpacity": 0.4,
             "backgroundImageStretchMode": "uniformToFill",
             "colorScheme": "Catppuccin Mocha",
