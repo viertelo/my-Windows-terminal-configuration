@@ -51,10 +51,12 @@ CMD/
 
 在 Windows 注册表中配置 `cmd.exe` 启动时自动加载该脚本（在 PowerShell 或 CMD 中运行）：
 ```cmd
-reg add "HKCU\Software\Microsoft\Command Processor" /v AutoRun /t REG_SZ /d "%%USERPROFILE%%\.config\cmd\autorun.cmd" /f
+reg add "HKCU\Software\Microsoft\Command Processor" /v AutoRun /t REG_SZ /d "@if exist \"%USERPROFILE%\.config\cmd\autorun.cmd\" call \"%USERPROFILE%\.config\cmd\autorun.cmd\"" /f
 ```
 
-> ⚠️ **换行符注意事项**：Windows 批处理脚本（`.cmd` / `.bat`）必须严格使用 **CRLF**（`\r\n`）换行符，切勿保存为 Unix LF，否则会导致行解析断裂。
+> ⚠️ **编码与换行符注意事项**：
+> - 批处理脚本必须保存为 **无 BOM UTF-8 (UTF-8 without BOM)** 编码，若包含 UTF-8 BOM 头，中文 Windows 下会引发 `'锘緻echo'` 报错。
+> - 换行符必须严格使用 **CRLF**（`\r\n`），切勿保存为 Unix LF。
 
 ### 2. 部署 Clink 配置
 将 `CMD/clink/` 下的所有文件复制到 Clink 本地配置目录：

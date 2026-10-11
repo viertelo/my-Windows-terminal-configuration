@@ -184,9 +184,9 @@ CMD 的增强由 **`autorun.cmd`**（负责注入别名与环境变量）与 **C
    ```
    > ⚠️ **注意**：批处理文件必须使用 **CRLF** 换行符。仓库配置已包含该格式。
 
-2. **写入注册表 AutoRun**（使每次启动 CMD 自动加载该脚本）：
+2. **写入注册表 AutoRun**（使每次启动 CMD 自动静默加载该脚本）：
    ```powershell
-   reg add "HKCU\Software\Microsoft\Command Processor" /v AutoRun /t REG_SZ /d "%USERPROFILE%\.config\cmd\autorun.cmd" /f
+   reg add "HKCU\Software\Microsoft\Command Processor" /v AutoRun /t REG_SZ /d "@if exist `"%USERPROFILE%\.config\cmd\autorun.cmd`" call `"%USERPROFILE%\.config\cmd\autorun.cmd`"" /f
    ```
 
 3. **部署 Clink 增强脚本**：
@@ -253,7 +253,7 @@ Copy-Item -Recurse .\Fastfetch\* $ffDir -Force
 # 3. Yazi 终端文件管理器配置
 $yaziDir = "$env:APPDATA\yazi\config"
 if (-not (Test-Path $yaziDir)) { New-Item -ItemType Directory -Path $yaziDir -Force }
-Copy-Item -Recurse .\Yazi\* $yaziDir -Force
+Copy-Item -Recurse .\yazi\* $yaziDir -Force
 ```
 
 ---
@@ -283,17 +283,28 @@ Copy-Item -Recurse .\Yazi\* $yaziDir -Force
 
 ---
 
-### Q2: 打开 CMD 报错 `'e" lt3=...' 不是内部或外部命令`？
-**原因**：`%USERPROFILE%\.config\cmd\autorun.cmd` 保存为了 Linux LF 换行符，导致 Windows 批处理行解析紊乱。  
-**解决**：在 PowerShell 中执行以下命令将其转换回 CRLF：
+### Q2: 打开 CMD 报错 `'锘緻echo'` 不是内部或外部命令？
+**原因**：批处理文件被编辑器保存时附带了 UTF-8 BOM 签名头（`EF BB BF`），Windows `cmd.exe` 在 GBK 环境下会将其错误识别为字符 `锘緻`。  
+**解决**：必须将其保存为**无 BOM UTF-8**。在 PowerShell 中运行以下命令修复：
 ```powershell
 $p = "$env:USERPROFILE\.config\cmd\autorun.cmd"
-[IO.File]::WriteAllText($p, ((Get-Content -Raw $p) -replace "`r?`n", "`r`n"), [System.Text.Encoding]::UTF8)
+[IO.File]::WriteAllText($p, (Get-Content -Raw $p), [System.Text.UTF8Encoding]::new($false))
 ```
 
 ---
 
-### Q3: Git 推送到 GitHub 时提示 `Permission denied to ... 403`？
+### Q3: 打开 CMD 报错 `'e" lt3=...' 不是内部或外部命令`？
+**原因**：`%USERPROFILE%\.config\cmd\autorun.cmd` 保存为了 Linux LF 换行符，导致 Windows 批处理行解析紊乱。  
+**解决**：在 PowerShell 中执行以下命令将其转换回 CRLF（且保持无 BOM）：
+```powershell
+$p = "$env:USERPROFILE\.config\cmd\autorun.cmd"
+$content = ((Get-Content -Raw $p) -replace "`r?`n", "`r`n")
+[IO.File]::WriteAllText($p, $content, [System.Text.UTF8Encoding]::new($false))
+```
+
+---
+
+### Q4: Git 推送到 GitHub 时提示 `Permission denied to ... 403`？
 **原因**：Windows 凭据管理器中缓存了其他 GitHub 账号的 Token 或密码。  
 **解决**：
 1. 打开 Windows「凭据管理器」➔「Windows 凭据」；
