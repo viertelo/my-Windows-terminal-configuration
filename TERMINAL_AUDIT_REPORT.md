@@ -95,7 +95,7 @@
 | **Yazi 按键绑定** | `Yazi/keymap.toml` | `%APPDATA%\yazi\config\keymap.toml` | `DE22D2AD9C4D38A9418CF20CF3E878C22B0C3FC4113481712BF9C56DAB201F0D` | ✅ 100% 一致 |
 | **Yazi 视觉主题** | `Yazi/theme.toml` | `%APPDATA%\yazi\config\theme.toml` | `6B28798C2FA873629FFAC6AA4885570FF379C29DDF0ED89810E5E8347F1885DE` | ✅ 100% 一致 |
 | **Starship 提示符** | `Starship/starship.toml` | `%USERPROFILE%\.config\starship.toml` | `6DB73CCBBA058CE611DF00C4CEFE3383588EAEE51F0A22FCB4C5357048CFB2B2` | ✅ 100% 一致 |
-| **CMD 启动脚本** | `CMD/autorun.cmd` | `%USERPROFILE%\.config\cmd\autorun.cmd` | `D3F7BAFD8EC8C7881E3EF05ADBDBA0EFDA62AC4B7437591B13B9DE7D0B636BB4` | ✅ 100% 一致 |
+| **CMD 启动脚本** | `CMD/autorun.cmd` | `%USERPROFILE%\.config\cmd\autorun.cmd` | `B7C3143A619FE76322A0481D2A7CD5BC78ADD93B9693320C478A35DD2888B74F` | ✅ 100% 一致 |
 | **Clink 设置脚本** | `CMD/clink/settings.lua` | `%LOCALAPPDATA%\clink\settings.lua` | `8BE18219F5F4F622BD9B614C397B196D423F701619302EC6B479BA715F1E7D9E` | ✅ 100% 一致 |
 | **Clink Starship** | `CMD/clink/starship.lua` | `%LOCALAPPDATA%\clink\starship.lua` | `3A018AB9B3FB0CB7BC802FB131124AD1A78BA5B8262373063477A31C9957A06F` | ✅ 100% 一致 |
 | **Clink 参数偏好** | `CMD/clink/clink_settings` | `%LOCALAPPDATA%\clink\clink_settings` | `C2DBC8722888E78618D404ADE29E45115FF00F9299BA51EE163A83CFFC20AFAE` | ✅ 100% 一致 |

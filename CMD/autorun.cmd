@@ -4,16 +4,26 @@ if "%~1"=="--shortcuts" goto :show_help
 if "%~1"=="help" goto :show_help
 if "%~1"=="shortcuts" goto :show_help
 
-setlocal EnableExtensions DisableDelayedExpansion
 rem Strip quotes before comparing CMDCMDLINE, never echo untrusted command text into a pipe.
 set "_terminal_line=%CMDCMDLINE:"=%"
-if not "%_terminal_line: /c=%"=="%_terminal_line%" exit /b
-if not "%_terminal_line: /C=%"=="%_terminal_line%" exit /b
-if defined TERMINAL_CMD_ACTIVE exit /b
+if not "%_terminal_line: /c=%"=="%_terminal_line%" (
+    set "_terminal_line="
+    exit /b
+)
+if not "%_terminal_line: /C=%"=="%_terminal_line%" (
+    set "_terminal_line="
+    exit /b
+)
+if defined TERMINAL_CMD_ACTIVE (
+    set "_terminal_line="
+    exit /b
+)
 set "TERMINAL_CMD_ACTIVE=1"
+set "_terminal_line="
 
 rem 1. 设置控制台代码页为 UTF-8 (65001)，解决中文与特殊字符乱码
 "%SystemRoot%\System32\chcp.com" 65001 >nul 2>&1
+@echo off
 
 rem 2. 通过 Doskey 注入现代化 CLI 快捷别名
 rem --- 目录导航与树形列表 ---
@@ -105,7 +115,6 @@ echo   └─ 实用工具: cat (代码高亮)  ports (查端口)   c (VSCode)  
 echo.
 :skip_tips
 
-endlocal
 exit /b
 
 :show_help
