@@ -256,7 +256,31 @@ else
 fi
 
 if command -v tre &> /dev/null; then
-    alias tre='tre -e'
+    tre() {
+        local editor="${EDITOR:-}"
+        if [ -z "$editor" ] && command -v nvim &>/dev/null; then
+            editor="nvim"
+        fi
+        if [ -n "$editor" ]; then
+            command tre -e "$editor" "$@"
+        else
+            command tre -e "$@"
+        fi
+        local alias_file="${TEMP:-/tmp}/tre_aliases_${USERNAME:-$USER}.bat"
+        if [ -f "$alias_file" ]; then
+            while IFS= read -r line; do
+                if [[ "$line" =~ ^doskey\ /exename=cmd\.exe\ (e[0-9]+)=(.+)$ ]]; then
+                    local a_name="${BASH_REMATCH[1]}"
+                    local a_cmd="${BASH_REMATCH[2]}"
+                    if [[ "$a_cmd" =~ ^START\ (.*)$ ]]; then
+                        alias "$a_name"="${editor:-start} \"${BASH_REMATCH[1]}\""
+                    else
+                        alias "$a_name"="$a_cmd"
+                    fi
+                fi
+            done < "$alias_file"
+        fi
+    }
 fi
 
 if command -v bat &> /dev/null; then
