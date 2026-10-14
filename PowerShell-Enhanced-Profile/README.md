@@ -44,13 +44,22 @@ PowerShell-Enhanced-Profile/
 
 ## ⚙️ 本地安装与部署
 
-### 1. 对应本地文件路径
+### 方式 A：自动化一键部署（推荐）
+在仓库根目录下运行：
+```powershell
+.\install.ps1
+```
+脚本将自动创建快照备份并将配置文件同步部署至 PowerShell 7+ 与 Windows PowerShell 5.1。
+
+### 方式 B：手动部署
+
+#### 1. 对应本地文件路径
 PowerShell 7+ 在当前用户的配置文件路径定义于 `$PROFILE`，通常对应：
 ```text
 %USERPROFILE%\Documents\PowerShell\Microsoft.PowerShell_profile.ps1
 ```
 
-### 2. 部署与重载
+#### 2. 手动部署与重载
 在 PowerShell 中运行：
 ```powershell
 # 1. 确保目录存在并复制配置

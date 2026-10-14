@@ -1,8 +1,8 @@
 # Yazi 文件类型与打开方式配置说明
 
-> 基于仓库 `yazi.toml` 的 `opener`、`open.rules` 和 `preview` 节 | Windows | 最后更新：2025-11-13
+> 基于仓库 `yazi.toml` 的 `opener`、`open.rules` 和 `preview` 节 | Windows | 最后更新：2026-10-13
 
-本文档简要说明常见文件类型的默认打开方式、打开规则与预览依赖。请以仓库中的 `yazi.toml` 为最终依据。
+本文档简要说明常见文件类型的默认打开方式、打开规则与预览依赖。请以仓库中的 `yazi.toml` 为最终依据。支持通过根目录下 `.\install.ps1` 自动化备份与部署。
 
 ---
 

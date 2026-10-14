@@ -15,11 +15,16 @@
 
 ## 🚀 部署与使用
 
-1. 确保已安装 Starship：
+1. 安装 Starship 提示符引擎：
    ```powershell
-   scoop install starship
+   # 推荐通过 WinGet 安装
+   winget install Starship.Starship --accept-source-agreements --accept-package-agreements
+
+   # 或通过 Scoop 备选安装
+   # scoop install starship
    ```
-2. 复制配置文件至用户目录：
+2. 自动化一键部署（推荐）：
+   在仓库根目录下直接运行 `.\install.ps1` 即可全自动备份并部署；若手动部署：
    ```powershell
    Copy-Item .\starship.toml "$env:USERPROFILE\.config\starship.toml" -Force
    ```

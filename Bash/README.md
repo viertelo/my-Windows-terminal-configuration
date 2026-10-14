@@ -42,7 +42,16 @@ Bash/
 
 ## ⚙️ 本地安装与同步
 
-### 1. Git Bash 部署
+### 方式 A：自动化一键部署（推荐）
+在仓库根目录下运行：
+```powershell
+.\install.ps1
+```
+脚本将自动创建快照备份并将 `Bash/.bashrc`、`.bash_profile` 与 `msys2.bashrc` 安全部署至对应家目录。
+
+### 方式 B：手动部署
+
+#### 1. Git Bash 部署
 Git Bash 读取当前 Windows 用户家目录下的配置文件：
 ```text
 %USERPROFILE%\.bashrc
@@ -52,7 +61,7 @@ Git Bash 读取当前 Windows 用户家目录下的配置文件：
 - `Bash/.bashrc` ➔ `%USERPROFILE%\.bashrc`
 - `Bash/.bash_profile` ➔ `%USERPROFILE%\.bash_profile`
 
-### 2. MSYS2 部署
+#### 2. MSYS2 部署
 MSYS2 读取其独立家目录下的配置文件（例如：`C:\msys64\home\<用户名>\.bashrc`）：
 - 将 `Bash/msys2.bashrc` 复制或合并至 `C:\msys64\home\<用户名>\.bashrc`。
 

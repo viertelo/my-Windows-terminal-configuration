@@ -40,7 +40,16 @@ Windows 商店版 Windows Terminal 默认配置文件位于：
 ```
 （便携版或免安装版位于对应主程序的同级或解压目录）。
 
-### 2. 手动部署方式
+### 2. 部署方式
+
+#### 方式 A：自动化一键部署（推荐）
+在仓库根目录下运行：
+```powershell
+.\install.ps1
+```
+脚本将自动创建快照备份并将 `Terminal/settings.json` 安全部署至 Windows Terminal (Stable 与 Preview) 对应目录。
+
+#### 方式 B：手动部署
 在 PowerShell 中运行：
 ```powershell
 $wtDest = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"

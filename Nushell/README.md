@@ -45,7 +45,16 @@ Nushell/
 
 ## ⚙️ 本地安装与同步
 
-### 本地路径对应
+### 方式 A：自动化一键部署（推荐）
+在仓库根目录下运行：
+```powershell
+.\install.ps1
+```
+脚本将自动创建快照备份并将 `Nushell/config.nu`、`env.nu` 与 `vendor/autoload/` 完整同步至 `%APPDATA%\nushell\`。
+
+### 方式 B：手动部署
+
+#### 本地路径对应
 NuShell 在 Windows 系统中的全局配置目录为：
 ```text
 %APPDATA%\nushell\
@@ -56,7 +65,7 @@ $nu.config-path
 $nu.env-path
 ```
 
-### 部署方法
+#### 手动复制文件
 将本目录下的所有文件复制到 `%APPDATA%\nushell\` 即可：
 - `Nushell/config.nu` ➔ `%APPDATA%\nushell\config.nu`
 - `Nushell/env.nu` ➔ `%APPDATA%\nushell\env.nu`

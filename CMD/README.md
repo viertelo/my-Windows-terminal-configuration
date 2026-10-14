@@ -43,7 +43,16 @@ CMD/
 
 ## ⚙️ 本地安装与配置
 
-### 1. 部署 `autorun.cmd`
+### 方式 A：自动化一键部署（推荐）
+在仓库根目录下运行：
+```powershell
+.\install.ps1
+```
+脚本将自动创建快照备份、强制以 **无 BOM UTF-8 + CRLF** 格式部署 `autorun.cmd`、自动向注册表写入 `AutoRun` 启动项，并将 Clink 补全脚本同步至 `%LOCALAPPDATA%\clink\`。
+
+### 方式 B：手动部署与注册
+
+#### 1. 部署 `autorun.cmd`
 将 `CMD/autorun.cmd` 放置于：
 ```text
 %USERPROFILE%\.config\cmd\autorun.cmd
@@ -58,7 +67,7 @@ reg add "HKCU\Software\Microsoft\Command Processor" /v AutoRun /t REG_SZ /d "@if
 > - 批处理脚本必须保存为 **无 BOM UTF-8 (UTF-8 without BOM)** 编码，若包含 UTF-8 BOM 头，中文 Windows 下会引发 `'锘緻echo'` 报错。
 > - 换行符必须严格使用 **CRLF**（`\r\n`），切勿保存为 Unix LF。
 
-### 2. 部署 Clink 配置
+#### 2. 部署 Clink 配置
 将 `CMD/clink/` 下的所有文件复制到 Clink 本地配置目录：
 ```text
 %LOCALAPPDATA%\clink\

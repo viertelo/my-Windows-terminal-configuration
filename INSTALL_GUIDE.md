@@ -45,7 +45,7 @@
 
 ## 方式 A：一键全自动安装（推荐，5分钟搞定）
 
-仓库内自带交互式部署脚本 `install.ps1`，具备**自动环境探测**、**原配置备份归档**与**多终端模块选择**功能。
+仓库内自带交互式部署脚本 `install.ps1`，具备**环境自动探测**、**WinGet 优先策略**、**中科大 (USTC) 高速镜像源**、**全终端配置快照备份**与**一键无损回退**功能。
 
 ### 运行方式：
 以普通用户身份打开 **PowerShell**，运行以下指令：
@@ -63,9 +63,18 @@ cd my-Windows-terminal-configuration
 ```
 
 脚本将提供交互菜单：
-- **选项 1**：全自动一键安装（自动安装 Scoop 依赖工具、Nerd Font 图标字体，并全量部署所有终端配置）。
-- **选项 2**：仅部署配置文件（适用于已通过 Scoop/Winget 安装好工具的用户，将自动备份旧配置并写入新配置）。
-- **选项 3~8**：单独针对特定终端进行增量部署。
+- **选项 1**：🚀 **全自动一键部署**（回车默认：自动检测并配置 WinGet 中科大高速镜像源，通过 WinGet 极速安装全部 CLI 依赖与 Nerd Font 字体，安全备份旧配置并全量部署所有终端）。
+- **选项 2**：⚡ **快速安装依赖与字体**（仅使用 WinGet/Scoop 安装核心工具与 JetBrainsMono Nerd Font）。
+- **选项 3**：📁 **仅部署配置文件**（自动安全备份旧配置并写入新配置，适合已有工具的用户）。
+- **选项 4**：🇨🇳 **配置/切换 WinGet 中国高速下载源**（切换至中科大 USTC 镜像，避免国内网络卡顿与连接超时）。
+- **选项 5**：🔄 **重置 WinGet 为微软官方源**（一键恢复微软官方 CDN 软件源）。
+- **选项 6**：💾 **立即执行配置快照备份**（安全归档所有受管配置与注册表项）。
+- **选项 7**：⏪ **从最近的快照一键回退/还原配置**（调用 `Restore-All.ps1` 一键无损还原）。
+
+> 💡 **非交互式命令行参数**：
+> - `.\install.ps1 -All`：静默全自动一键安装。
+> - `.\install.ps1 -ConfigOnly`：仅部署配置文件。
+> - `.\install.ps1 -Restore` 或直接运行 `.\Restore-All.ps1`：一键回退。
 
 ---
 
@@ -75,20 +84,22 @@ cd my-Windows-terminal-configuration
 
 ---
 
-### 第 1 步：基础环境与包管理器准备 (Scoop)
+### 第 1 步：包管理器准备与中国高速镜像源配置 (WinGet)
 
-我们推荐使用轻量级 Windows 包管理器 **Scoop**，所有工具均安装在用户家目录下，不污染系统环境变量。
+Windows 10 (1809+) 及 Windows 11 已原生内置 **WinGet (Windows 程序包管理器)**。为保证国内极速下载体验，建议配置中科大 (USTC) 高速源：
 
-1. 打开 **PowerShell**，允许执行脚本：
+1. 以**管理员身份**打开 PowerShell，执行中科大源切换：
    ```powershell
-   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+   winget source remove winget
+   winget source add winget https://mirrors.ustc.edu.cn/winget-source --trust-level trusted
+   winget source update
    ```
-2. 安装 Scoop：
+   *(如需恢复官方源，可随时执行 `winget source reset winget`)*
+
+2. 若您的环境为精简版或无 WinGet 的旧系统，可使用 **Scoop** 作为备选：
    ```powershell
+   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
    irm get.scoop.sh | iex
-   ```
-3. 添加必要的工具软件源（Bucket）：
-   ```powershell
    scoop bucket add extras
    scoop bucket add nerd-fonts
    ```
@@ -101,13 +112,20 @@ cd my-Windows-terminal-configuration
 
 1. **安装 Nerd Font 字体**（解决图标乱码与方块问题）：
    ```powershell
-   scoop install JetBrainsMono-NF
+   # 推荐通过 WinGet 安装
+   winget install DEVCOM.JetBrainsMonoNerdFont --accept-source-agreements --accept-package-agreements
+
+   # 或通过 Scoop 备选安装
+   # scoop install JetBrainsMono-NF
    ```
-   > 💡 字体安装后会自动注册到系统中。
 
 2. **安装全套现代化生产力工具**：
    ```powershell
-   scoop install git starship oh-my-posh fastfetch eza bat zoxide fzf television tre clink nushell yazi lazygit neovim
+   # 推荐通过 WinGet 安装
+   winget install Microsoft.PowerShell Git.Git Starship.Starship JanDeDobbeleer.OhMyPosh Fastfetch-cli.Fastfetch eza-community.eza sharkdp.bat ajeetdsouza.zoxide junegunn.fzf alexpasmantier.television duan.tre chrisant996.Clink Nushell.Nushell sxyazi.yazi JesseDuffield.lazygit Neovim.Neovim BurntSushi.ripgrep.MSVC sharkdp.fd --accept-source-agreements --accept-package-agreements
+
+   # 或通过 Scoop 备选安装
+   # scoop install git starship oh-my-posh fastfetch eza bat zoxide fzf television tre clink nushell yazi lazygit neovim ripgrep fd
    ```
 
    **工具矩阵一览**：
