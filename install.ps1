@@ -87,7 +87,15 @@ function Install-AllDependencies {
         @{ Name = "LazyGit 键盘Git面板"; WingetId = "JesseDuffield.lazygit";         ScoopId = "lazygit";     CommandCheck = "lazygit" },
         @{ Name = "Neovim 现代编辑器";   WingetId = "Neovim.Neovim";                 ScoopId = "neovim";      CommandCheck = "nvim" },
         @{ Name = "Ripgrep 极速代码检索";WingetId = "BurntSushi.ripgrep.MSVC";       ScoopId = "ripgrep";     CommandCheck = "rg" },
-        @{ Name = "Fd 极速文件搜索";     WingetId = "sharkdp.fd";                    ScoopId = "fd";          CommandCheck = "fd" }
+        @{ Name = "Fd 极速文件搜索";     WingetId = "sharkdp.fd";                    ScoopId = "fd";          CommandCheck = "fd" },
+
+        # Yazi 富媒体与多格式文档预览增强工具链 (官方推荐)
+        @{ Name = "7-Zip 压缩包树形预览"; WingetId = "7zip.7zip";                  ScoopId = "7zip";        CommandCheck = "7z" },
+        @{ Name = "Jq JSON格式化预览";   WingetId = "jqlang.jq";                   ScoopId = "jq";          CommandCheck = "jq" },
+        @{ Name = "Poppler PDF渲染预览"; WingetId = "oschwartz10612.Poppler";      ScoopId = "poppler";     CommandCheck = "pdftoppm" },
+        @{ Name = "FFmpeg 多媒体看板预览";WingetId = "Gyan.FFmpeg";                 ScoopId = "ffmpeg";      CommandCheck = "ffmpeg" },
+        @{ Name = "ImageMagick 图片高级处理"; WingetId = "ImageMagick.ImageMagick"; ScoopId = "imagemagick"; CommandCheck = "magick" },
+        @{ Name = "Resvg SVG矢量图预览";   WingetId = "";                           ScoopId = "resvg";       CommandCheck = "resvg" }
     )
 
     foreach ($tool in $toolMatrix) {
@@ -96,6 +104,9 @@ function Install-AllDependencies {
 
     # 4. 安装 PowerShell Gallery 必备增强模块插件
     Install-PowerShellModules
+
+    # 5. 自动配置 Yazi 核心依赖 file(1) 环境变量 (YAZI_FILE_ONE)
+    Ensure-YaziEnvironment
 
     Write-Success "全部底层 CLI 生产力工具链就绪！"
 }
@@ -248,6 +259,9 @@ function Deploy-Configurations {
         }
         Write-Success "Yazi 配置文件 (*.toml) 已同步！"
     }
+
+    # 确保 Yazi 核心依赖 file(1) 环境变量 (YAZI_FILE_ONE) 落地
+    Ensure-YaziEnvironment
 
     Write-Header "🎉 全部终端配置部署完毕！"
     Write-Host ""

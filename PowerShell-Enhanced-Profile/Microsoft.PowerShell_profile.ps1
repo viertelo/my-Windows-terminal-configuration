@@ -117,6 +117,11 @@ function reload {
 # Yazi file manager integration with automatic directory changing upon exit
 function y {
     if (-not (Get-Command yazi -CommandType Application -ErrorAction SilentlyContinue)) { Write-Warning 'yazi is not installed.'; return }
+    if (-not $env:YAZI_FILE_ONE) {
+        foreach ($cand in @('C:\Program Files\Git\usr\bin\file.exe', "$env:USERPROFILE\scoop\apps\git\current\usr\bin\file.exe", "$env:LOCALAPPDATA\Programs\Git\usr\bin\file.exe")) {
+            if ([IO.File]::Exists($cand)) { $env:YAZI_FILE_ONE = $cand; break }
+        }
+    }
     $tmp=[IO.Path]::GetTempFileName()
     try {
         & yazi @args --cwd-file="$tmp"

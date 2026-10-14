@@ -637,3 +637,58 @@ function Install-PowerShellModules {
         }
     }
 }
+
+# -----------------------------------------------------------------------------
+# 10. Yazi 专用环境与富媒体预览依赖配置
+# -----------------------------------------------------------------------------
+
+<#
+.SYNOPSIS
+    配置 Yazi 核心依赖 file(1) 环境变量 (YAZI_FILE_ONE) 并确保富媒体预览工具就绪。
+.DESCRIPTION
+    1. 动态探测 Git for Windows 附带的 file.exe 落地路径；
+    2. 将其持久化写入用户级环境变量 YAZI_FILE_ONE，并同步刷新当前进程环境；
+    3. 支持探测和配置 Scoop、WinGet、官方安装包多种 Git 安装路径。
+#>
+function Ensure-YaziEnvironment {
+    Write-Info "正在检查 Yazi 核心依赖与 YAZI_FILE_ONE 环境变量..."
+
+    $candidates = @(
+        'C:\Program Files\Git\usr\bin\file.exe',
+        "$env:USERPROFILE\scoop\apps\git\current\usr\bin\file.exe",
+        "$env:LOCALAPPDATA\Programs\Git\usr\bin\file.exe",
+        'C:\Program Files (x86)\Git\usr\bin\file.exe'
+    )
+
+    $resolvedFileExe = $null
+    foreach ($cand in $candidates) {
+        if (Test-Path -LiteralPath $cand) {
+            $resolvedFileExe = $cand
+            break
+        }
+    }
+
+    if (-not $resolvedFileExe) {
+        $gitCmd = Get-Command git -ErrorAction SilentlyContinue
+        if ($gitCmd -and $gitCmd.Source) {
+            $gitRoot = Split-Path (Split-Path $gitCmd.Source -Parent) -Parent
+            $cand = Join-Path $gitRoot 'usr\bin\file.exe'
+            if (Test-Path -LiteralPath $cand) {
+                $resolvedFileExe = $cand
+            }
+        }
+    }
+
+    if ($resolvedFileExe) {
+        $currentUserVal = [Environment]::GetEnvironmentVariable('YAZI_FILE_ONE', 'User')
+        if ($currentUserVal -ne $resolvedFileExe) {
+            [Environment]::SetEnvironmentVariable('YAZI_FILE_ONE', $resolvedFileExe, 'User')
+            Write-Success "已将 YAZI_FILE_ONE 持久化配置为: $resolvedFileExe"
+        } else {
+            Write-Success "YAZI_FILE_ONE 已正确指向: $resolvedFileExe"
+        }
+        $env:YAZI_FILE_ONE = $resolvedFileExe
+    } else {
+        Write-Warn "未在常用路径找到 Git 附带的 file.exe，建议安装 Git for Windows 以启用精确 MIME 检测。"
+    }
+}

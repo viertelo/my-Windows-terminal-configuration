@@ -62,6 +62,24 @@ Get-ChildItem -Path .\yazi -Filter "*.toml" | ForEach-Object {
 }
 ```
 
+### 3. Windows MIME 检测核心配置 (`YAZI_FILE_ONE`)
+
+Windows 上 Yazi 依赖 `file(1)` 探测文件真实 MIME 类型。推荐使用 Git for Windows 自带的 `file.exe`，并将其配置到系统环境变量 `YAZI_FILE_ONE` 中：
+```powershell
+# 将 Git 附带的 file.exe 注册为用户环境变量 (若运行 .\install.ps1 会全自动配置)
+[Environment]::SetEnvironmentVariable("YAZI_FILE_ONE", "C:\Program Files\Git\usr\bin\file.exe", "User")
+```
+
+### 4. 推荐安装的预览增强工具链
+
+```powershell
+# WinGet 批量安装推荐预览依赖 (支持压缩包、JSON、PDF、音视频与图片高级处理)
+winget install 7zip.7zip jqlang.jq oschwartz10612.Poppler Gyan.FFmpeg ImageMagick.ImageMagick sharkdp.bat ajeetdsouza.zoxide junegunn.fzf BurntSushi.ripgrep.MSVC sharkdp.fd
+
+# 通过 Scoop 补充安装 SVG 矢量图预览工具 (resvg 暂未上架 WinGet)
+scoop install resvg
+```
+
 ---
 
 ## 📚 详细子文档索引
