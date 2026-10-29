@@ -424,7 +424,7 @@ function Ensure-ScoopBucket {
 function Install-AppWithWingetScoopFallback {
     param(
         [Parameter(Mandatory=$true)][string]$Name,
-        [Parameter(Mandatory=$true)][string]$WingetId,
+        [Parameter(Mandatory=$true)][AllowEmptyString()][string]$WingetId,
         [Parameter(Mandatory=$true)][string]$ScoopId,
         [Parameter(Mandatory=$true)][string]$CommandCheck
     )
@@ -437,48 +437,53 @@ function Install-AppWithWingetScoopFallback {
         return $true
     }
 
-    Write-Info "正在安装 $Name (WinGet ID: $WingetId)..."
+    # 第一梯队：优先使用 WinGet（仅当存在有效 WingetId 时执行）
+    if (-not [string]::IsNullOrWhiteSpace($WingetId)) {
+        Write-Info "正在安装 $Name (WinGet ID: $WingetId)..."
 
-    # 第一梯队：优先使用 WinGet
-    $wingetCmd = Get-Command winget -ErrorAction SilentlyContinue
-    if (-not $wingetCmd) {
-        $windowsApps = Join-Path $env:LOCALAPPDATA 'Microsoft\WindowsApps'
-        if (Test-Path (Join-Path $windowsApps 'winget.exe')) {
-            $env:PATH = "$($env:PATH);$windowsApps"
-            $wingetCmd = Get-Command winget -ErrorAction SilentlyContinue
-        }
-    }
-
-    if ($wingetCmd) {
-        try {
-            $args = @(
-                "install",
-                "--id", $WingetId,
-                "--exact",
-                "--accept-source-agreements",
-                "--accept-package-agreements",
-                "--disable-interactivity",
-                "--silent"
-            )
-            $proc = Start-Process -FilePath $wingetCmd.Source -ArgumentList $args -NoNewWindow -PassThru -Wait
-            # 常见合法退出码：
-            # 0: 成功安装
-            # -1978335189 (0x8A15002B): 相同或更高版本已安装
-            # -1978335176 (0x8A150038): 没有适用的更新/已是最新
-            if ($proc.ExitCode -in @(0, -1978335189, -1978335176)) {
-                Refresh-SessionPath
-                if (Get-Command $CommandCheck -ErrorAction SilentlyContinue) {
-                    Write-Success "[WinGet] $Name 安装成功！"
-                    return $true
-                }
+        $wingetCmd = Get-Command winget -ErrorAction SilentlyContinue
+        if (-not $wingetCmd) {
+            $windowsApps = Join-Path $env:LOCALAPPDATA 'Microsoft\WindowsApps'
+            if (Test-Path (Join-Path $windowsApps 'winget.exe')) {
+                $env:PATH = "$($env:PATH);$windowsApps"
+                $wingetCmd = Get-Command winget -ErrorAction SilentlyContinue
             }
-        } catch {
-            Write-Warn "WinGet 调用异常: $_"
         }
+
+        if ($wingetCmd) {
+            try {
+                $args = @(
+                    "install",
+                    "--id", $WingetId,
+                    "--exact",
+                    "--accept-source-agreements",
+                    "--accept-package-agreements",
+                    "--disable-interactivity",
+                    "--silent"
+                )
+                $proc = Start-Process -FilePath $wingetCmd.Source -ArgumentList $args -NoNewWindow -PassThru -Wait
+                # 常见合法退出码：
+                # 0: 成功安装
+                # -1978335189 (0x8A15002B): 相同或更高版本已安装
+                # -1978335176 (0x8A150038): 没有适用的更新/已是最新
+                if ($proc.ExitCode -in @(0, -1978335189, -1978335176)) {
+                    Refresh-SessionPath
+                    if (Get-Command $CommandCheck -ErrorAction SilentlyContinue) {
+                        Write-Success "[WinGet] $Name 安装成功！"
+                        return $true
+                    }
+                }
+            } catch {
+                Write-Warn "WinGet 调用异常: $_"
+            }
+        }
+
+        Write-Warn "[WinGet] 安装 $Name 遇阻，正在启用备选方案 (Scoop)..."
+    } else {
+        Write-Info "正在通过 Scoop 安装 $Name ($ScoopId)..."
     }
 
-    # 第二梯队：若 WinGet 失败，自动启动 Scoop 备选方案
-    Write-Warn "[WinGet] 安装 $Name 遇阻，正在启用备选方案 (Scoop)..."
+    # 第二梯队：若 WinGet 失败或无对应 WinGet 包，自动启动 Scoop 备选方案
     if (Ensure-ScoopInstalled) {
         if ($ScoopId -match '/') {
             $b = $ScoopId.Split('/')[0]
@@ -491,7 +496,7 @@ function Install-AppWithWingetScoopFallback {
             & scoop install $ScoopId | Out-Null
             Refresh-SessionPath
             if (Get-Command $CommandCheck -ErrorAction SilentlyContinue) {
-                Write-Success "[Scoop 备选] $Name 安装成功！"
+                Write-Success "[Scoop] $Name 安装成功！"
                 return $true
             }
         } catch {
@@ -499,7 +504,11 @@ function Install-AppWithWingetScoopFallback {
         }
     }
 
-    Write-Warn "未能自动完成 $Name 的安装，您可以稍后手动执行: winget install $WingetId"
+    if (-not [string]::IsNullOrWhiteSpace($WingetId)) {
+        Write-Warn "未能自动完成 $Name 的安装，您可以稍后手动执行: winget install $WingetId"
+    } else {
+        Write-Warn "未能自动完成 $Name 的安装，您可以稍后手动执行: scoop install $ScoopId"
+    }
     return $false
 }
 

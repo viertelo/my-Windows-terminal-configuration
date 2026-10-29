@@ -68,7 +68,9 @@ Copy-Item .\Fastfetch\* $ffDest -Recurse -Force
   ```
 - **Bash / MSYS2**：
   ```bash
-  export BASH_PROFILE_BANNER=0
+  export PROFILE_BANNER=0
   ```
 - **NuShell**：
-  可在 `config.nu` 中通过注释或条件判断控制。
+  ```nu
+  $env.PROFILE_BANNER = "0"
+  ```

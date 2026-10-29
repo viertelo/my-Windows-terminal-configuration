@@ -98,6 +98,12 @@
 | **Neovim** | 现代化高扩展模态文本编辑器 | `Neovim.Neovim` | `neovim` | `nvim` |
 | **Ripgrep** | 极速多线程文本检索 (`rg`) | `BurntSushi.ripgrep.MSVC` | `ripgrep` | `rg` |
 | **Fd** | 现代化快速文件搜索工具 (`fd`) | `sharkdp.fd` | `fd` | `fd` |
+| **7-Zip** | Yazi 压缩包免解压树形预览 (`7z`) | `7zip.7zip` | `7zip` | `7z` |
+| **Jq** | Yazi JSON/NDJSON 高亮格式化预览 | `jqlang.jq` | `jq` | `jq` |
+| **Poppler** | Yazi PDF 文档渲染预览 (`pdftoppm`) | `oschwartz10612.Poppler` | `poppler` | `pdftoppm` |
+| **FFmpeg** | Yazi 视频缩略图与多媒体信息预览 | `Gyan.FFmpeg` | `ffmpeg` | `ffmpeg` |
+| **ImageMagick** | Yazi HEIC/AVIF/JXL 高级图像预览 | `ImageMagick.ImageMagick` | `imagemagick` | `magick` |
+| **Resvg** | Yazi SVG 矢量图即时渲染预览 | *(自动走 Scoop)* | `resvg` | `resvg` |
 | **Nerd Font** | JetBrainsMono 图标字体（解决乱码） | `DEVCOM.JetBrainsMonoNerdFont` | `nerd-fonts/JetBrainsMono-NF` | 字体库 |
 
 ---

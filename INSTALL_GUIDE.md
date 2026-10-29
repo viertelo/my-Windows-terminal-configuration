@@ -11,7 +11,7 @@
 - [0. 核心架构与部署路线图](#0-核心架构与部署路线图)
 - [方式 A：一键全自动安装（推荐，5分钟搞定）](#方式-a一键全自动安装推荐5分钟搞定)
 - [方式 B：分步手动精细化安装（适合深度定制）](#方式-b分步手动精细化安装适合深度定制)
-  - [第 1 步：基础环境与包管理器准备 (Scoop)](#第-1-步基础环境与包管理器准备-scoop)
+  - [第 1 步：包管理器准备与中国高速镜像源配置 (WinGet)](#第-1-步包管理器准备与中国高速镜像源配置-winget)
   - [第 2 步：核心 CLI 工具与图标字体安装](#第-2-步核心-cli-工具与图标字体安装)
   - [第 3 步：Windows Terminal 终端调校](#第-3-步windows-terminal-终端调校)
   - [第 4 步：PowerShell 7+ 高阶 Profile 部署](#第-4-步powershell-7-高阶-profile-部署)
@@ -38,7 +38,7 @@
 ├── Bash/.bashrc & .bash_profile        ➔  %USERPROFILE%\.bashrc & .bash_profile
 ├── Starship/starship.toml              ➔  %USERPROFILE%\.config\starship.toml
 ├── Fastfetch/*                         ➔  %USERPROFILE%\.config\fastfetch\
-└── Yazi/*                              ➔  %APPDATA%\yazi\config\
+└── yazi/*.toml                         ➔  %APPDATA%\yazi\config\
 ```
 
 ---
@@ -268,10 +268,10 @@ $ffDir = "$env:USERPROFILE\.config\fastfetch"
 if (-not (Test-Path $ffDir)) { New-Item -ItemType Directory -Path $ffDir -Force }
 Copy-Item -Recurse .\Fastfetch\* $ffDir -Force
 
-# 3. Yazi 终端文件管理器配置
+# 3. Yazi 终端文件管理器配置 (仅复制 *.toml 配置文件)
 $yaziDir = "$env:APPDATA\yazi\config"
 if (-not (Test-Path $yaziDir)) { New-Item -ItemType Directory -Path $yaziDir -Force }
-Copy-Item -Recurse .\yazi\* $yaziDir -Force
+Copy-Item .\yazi\*.toml $yaziDir -Force
 ```
 
 ---
@@ -296,7 +296,7 @@ Copy-Item -Recurse .\yazi\* $yaziDir -Force
 ### Q1: 终端里的图标显示为方块（口口）或乱码？
 **原因**：终端使用的字体不是 **Nerd Font**，缺少图标字形映射。  
 **解决**：
-1. 确保已运行 `scoop install JetBrainsMono-NF`；
+1. 确保已运行 `winget install DEVCOM.JetBrainsMonoNerdFont`（或 `scoop install JetBrainsMono-NF`）；
 2. 打开 Windows Terminal 设置 ➔ 选择当前配置（或“默认值”）➔「外观」➔「字体」➔ 选择 `JetBrainsMono NFM` 或 `JetBrainsMono NF`。
 
 ---
@@ -332,7 +332,7 @@ $content = ((Get-Content -Raw $p) -replace "`r?`n", "`r`n")
 
 ---
 
-### Q4: 终端启动慢，想跳过欢迎卡片或硬件看板？
+### Q5: 终端启动慢，想跳过欢迎卡片或硬件看板？
 本套配置设计了灵活的环境变量开关，可在无需修改代码的情况下自由控制：
 - **PowerShell 7**：在 `$PROFILE` 顶部添加 `$env:POWERSHELL_PROFILE_MINIMAL = '1'` 可实现 ~100ms 极速秒开。
 - **CMD**：执行 `set CMD_PROFILE_TIPS=0` 与 `set CMD_PROFILE_BANNER=0`。

@@ -1,9 +1,9 @@
 # Windows 终端全家桶配置全面审计与优化报告
 
-> **审计执行时间**：2026-10-11  
+> **审计执行时间**：2026-10-11（最新复审：2026-10-29）  
 > **审计对象**：`my-Windows-terminal-configuration`（Windows Terminal / PowerShell 7+ / CMD + Clink / NuShell / Git Bash & MSYS2 / Starship / Fastfetch / Yazi）  
 > **基准运行平台**：Windows 11 专业版 (26H2) / PowerShell 7.5.4 / Windows Terminal 最新版  
-> **审计结果状态**：全平台配置 19 个核心组件比对完毕，确立黄金生产标准，完成 0 错误自动化验证，本地与 GitHub 仓库达到 100% SHA-256 哈希一致。
+> **审计结果状态**：全平台配置 19 个核心组件与 24 款工具链比对完毕，确立黄金生产标准，完成 0 错误自动化验证，本地与 GitHub 仓库达到 100% SHA-256 哈希一致。
 
 ---
 
@@ -87,13 +87,13 @@
 
 | 组件名称 | 仓库路径 | 对应本地物理安装路径 | SHA-256 校验和 | 验证状态 |
 | :--- | :--- | :--- | :--- | :--- |
-| **PowerShell Profile** | `PowerShell-Enhanced-Profile/Microsoft.PowerShell_profile.ps1` | `$PROFILE` | `3BB65559E40F95D8F46BC8DFDDD143DB3AF114C950E7492D7306CB5F8EC82223` | ✅ 100% 一致 |
+| **PowerShell Profile** | `PowerShell-Enhanced-Profile/Microsoft.PowerShell_profile.ps1` | `$PROFILE` | `6D3F8163693261B4BE5FD3A0578F1356DBF57A77F02AA09C4F20E7206FEDB16A` | ✅ 100% 一致 |
 | **Windows Terminal** | `Terminal/settings.json` | `%LOCALAPPDATA%\Packages\...` | `974E23019F5042650A033F8C845A231618EA6AF076309EA04552D3EBB1E29B75` | ✅ 100% 一致 |
 | **Fastfetch 配置** | `Fastfetch/config.jsonc` | `%USERPROFILE%\.config\fastfetch\config.jsonc` | `3B874E6DD644823F33D022A9CD85D14F16819F6756DA196F12D48C4C22A26879` | ✅ 100% 一致 |
 | **Fastfetch ASCII** | `Fastfetch/ascii.txt` | `%USERPROFILE%\.config\fastfetch\ascii.txt` | `241EE47C51B433F88FA766BE602452207E9B2D0E69AC4139969E23208AD4419A` | ✅ 100% 一致 |
-| **Yazi 主配置** | `Yazi/yazi.toml` | `%APPDATA%\yazi\config\yazi.toml` | `3DE9E85BC585840C0E1FFBC6682F0860007D939D52DA69F675044EE8BF15254F` | ✅ 100% 一致 |
-| **Yazi 按键绑定** | `Yazi/keymap.toml` | `%APPDATA%\yazi\config\keymap.toml` | `DE22D2AD9C4D38A9418CF20CF3E878C22B0C3FC4113481712BF9C56DAB201F0D` | ✅ 100% 一致 |
-| **Yazi 视觉主题** | `Yazi/theme.toml` | `%APPDATA%\yazi\config\theme.toml` | `6B28798C2FA873629FFAC6AA4885570FF379C29DDF0ED89810E5E8347F1885DE` | ✅ 100% 一致 |
+| **Yazi 主配置** | `yazi/yazi.toml` | `%APPDATA%\yazi\config\yazi.toml` | `3DE9E85BC585840C0E1FFBC6682F0860007D939D52DA69F675044EE8BF15254F` | ✅ 100% 一致 |
+| **Yazi 按键绑定** | `yazi/keymap.toml` | `%APPDATA%\yazi\config\keymap.toml` | `DE22D2AD9C4D38A9418CF20CF3E878C22B0C3FC4113481712BF9C56DAB201F0D` | ✅ 100% 一致 |
+| **Yazi 视觉主题** | `yazi/theme.toml` | `%APPDATA%\yazi\config\theme.toml` | `6B28798C2FA873629FFAC6AA4885570FF379C29DDF0ED89810E5E8347F1885DE` | ✅ 100% 一致 |
 | **Starship 提示符** | `Starship/starship.toml` | `%USERPROFILE%\.config\starship.toml` | `6DB73CCBBA058CE611DF00C4CEFE3383588EAEE51F0A22FCB4C5357048CFB2B2` | ✅ 100% 一致 |
 | **CMD 启动脚本** | `CMD/autorun.cmd` | `%USERPROFILE%\.config\cmd\autorun.cmd` | `C7629A7CE1AE4C031258571B163CCDE188CE649CD11566FB1C8BFF5299EDA435` | ✅ 100% 一致 |
 | **Clink 设置脚本** | `CMD/clink/settings.lua` | `%LOCALAPPDATA%\clink\settings.lua` | `8BE18219F5F4F622BD9B614C397B196D423F701619302EC6B479BA715F1E7D9E` | ✅ 100% 一致 |
@@ -173,3 +173,16 @@
 5. **全终端配置快照与一键回退系统 (`Restore-All.ps1`)**：
    - 参考 `powershelldome` 架构标准，实现多终端文件 SHA-256 哈希审计与注册表联动备份；
    - 支持静默演练 (`-WhatIf`) 与一键无损撤销，极大提升生产安全性。
+
+---
+
+## 九、2026-10-14 ~ 2026-10-29 预览工具链扩展与脚本健壮性复审记录
+
+1. **Yazi 富媒体预览工具链与 `YAZI_FILE_ONE` 自动化集成**：
+   - 在 `install.ps1` 与 `TerminalSetupCommon.ps1` 中新增 `Ensure-YaziEnvironment`，自动探测 Git for Windows 的 `file.exe` 并持久化写入 `YAZI_FILE_ONE` 环境变量；
+   - 在 PowerShell Profile 的 `y` 包装函数中增加 `YAZI_FILE_ONE` 动态兜底解析；
+   - 扩展安装矩阵至 24 款工具（新增 `7-Zip`, `jq`, `Poppler`, `FFmpeg`, `ImageMagick`, `Resvg`）。
+2. **安装与回退引擎健壮性修复（2026-10-29 审计修复）**：
+   - **修复空 `WingetId` 参数绑定异常**：为 `Install-AppWithWingetScoopFallback` 的 `$WingetId` 参数添加 `[AllowEmptyString()]` 并在 `$WingetId` 为空时直接平滑走 Scoop 安装（解决 `resvg` 无 WinGet 包时的参数绑定报错）；
+   - **补全 NuShell `vendor` 快照还原闭环**：在 `TerminalState.ps1` 的 `Restore-TerminalSnapshot` 中补充 `nushell_vendor` 目录还原与 `-WhatIf` 预览输出，与备份阶段的 `Backup-AllTerminalConfigurations` 完全对称；
+   - **本机 Profile 同步与哈希基准对齐**：将最新 `PowerShell-Enhanced-Profile/Microsoft.PowerShell_profile.ps1` 同步部署至本机 PowerShell 7 与 Windows PowerShell 5.1，并更新本文档 SHA-256 黄金基准表及关联文档细节。

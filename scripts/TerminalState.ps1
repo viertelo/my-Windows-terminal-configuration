@@ -421,9 +421,25 @@ function Restore-TerminalSnapshot {
     $clinkBackup = Join-Path $Directory "clink_dir"
     if (Test-Path $clinkBackup) {
         $clinkDest = "$env:LOCALAPPDATA\clink"
-        if (-not $WhatIf) {
+        if ($WhatIf) {
+            Write-Host "  [WhatIf] 将还原 Clink 脚本目录: $clinkDest" -ForegroundColor DarkGray
+        } else {
+            if (-not (Test-Path $clinkDest)) { New-Item -ItemType Directory -Path $clinkDest -Force | Out-Null }
             Copy-Item (Join-Path $clinkBackup "*") $clinkDest -Recurse -Force -ErrorAction SilentlyContinue
             Write-Host "  [✓] 已还原 Clink 脚本目录" -ForegroundColor Green
+        }
+    }
+
+    # 还原 NuShell vendor 目录
+    $nuBackup = Join-Path $Directory "nushell_vendor"
+    if (Test-Path $nuBackup) {
+        $nuVendorDest = "$env:APPDATA\nushell\vendor"
+        if ($WhatIf) {
+            Write-Host "  [WhatIf] 将还原 NuShell vendor 目录: $nuVendorDest" -ForegroundColor DarkGray
+        } else {
+            if (-not (Test-Path $nuVendorDest)) { New-Item -ItemType Directory -Path $nuVendorDest -Force | Out-Null }
+            Copy-Item (Join-Path $nuBackup "*") $nuVendorDest -Recurse -Force -ErrorAction SilentlyContinue
+            Write-Host "  [✓] 已还原 NuShell vendor 目录" -ForegroundColor Green
         }
     }
 

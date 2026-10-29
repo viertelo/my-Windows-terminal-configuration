@@ -3,7 +3,7 @@
 # Windows 终端全家桶 现代化一键自动化安装与部署向导脚本
 #
 # 【架构特性】：
-#   - 优先策略：全套 18 款核心 CLI 工具 + JetBrainsMono Nerd Font 100% 优先采用 WinGet 原生安装
+#   - 优先策略：全套 24 款 CLI 工具 (18款核心工具 + 6款Yazi预览工具) + JetBrainsMono Nerd Font 优先采用 WinGet 原生安装
 #   - 国内加速：内置中科大 (USTC) 软件源支持，彻底摆脱国内连接 GitHub/海外 CDN 超时困扰
 #   - 容错保底：在无 WinGet 或特定组件受阻时，自动切换 Scoop (结合 gh-proxy/gitee 镜像) 兜底
 #   - 安全机制：每次部署前强制创建配置快照，配合 Restore-All.ps1 实现一键无损秒级回滚
